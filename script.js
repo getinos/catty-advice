@@ -26,35 +26,56 @@ getAdviceBtn.addEventListener('click', async () => {
         const catFactData = await catFactResponse.json();
         const catFact = catFactData.data[0];  // Get the first fact (since the API returns an array)
 
-        // Display the Cat Fact on screen
-        cattyReply.innerHTML = `<strong>🐾 Cat Fact:</strong> "${catFact}"`;
+       
 
-        // Generate sarcastic advice based on the cat fact and user query
-        // NOTE: This should be done through a backend service in a real app
-        // For demo purposes, we'll create a hardcoded response
+        // Call Gemini API for sarcastic advice
+        const API_KEY = "AIzaSyAKyKvLgfA-xEKHw7UN4qGLvf8NLWQVXVk"; // Replace with your actual Gemini API key
+        const API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent";
         
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Create prompt for Gemini
+        const prompt = `You are a sarcastic cat. Give life advice based on the fact: "${catFact}" and this user's problem: "${userQuery}". The advice should be humorous and insulting and not true and sarcastic. Keep it under 70 words. example "Cats sleep for 70% of their lives."
+"Unlike you, they actually look cute doing it.`;
         
-        // Create a cat-like sarcastic response based on the user query
-        let sarcasticAdvice;
-        
-        if (userQuery.toLowerCase().includes("work") || userQuery.toLowerCase().includes("job")) {
-            sarcasticAdvice = `Listen human, just like how I nap 16 hours a day, you should consider that work is overrated. Find a warm keyboard to lay on instead. That's the secret to happiness.`;
-        } else if (userQuery.toLowerCase().includes("relationship") || userQuery.toLowerCase().includes("love")) {
-            sarcasticAdvice = `Relationships? Please. I knock things off shelves to get attention and it works every time. Try that with your human companion. Just maintain eye contact while slowly pushing their favorite mug off the table.`;
-        } else if (userQuery.toLowerCase().includes("stress") || userQuery.toLowerCase().includes("anxiety")) {
-            sarcasticAdvice = `Stress? Have you tried knocking things over and then running away really fast? Works for me every time. Or just find a sunny spot and ignore everyone. That's what I'd do.`;
-        } else {
-            sarcasticAdvice = `Based on my extensive experience as a cat who does whatever I want, I suggest you ignore your problems and take a 5-hour nap. If anyone questions you, just stare at them judgmentally until they walk away.`;
+        // Make the API call
+        const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                contents: [
+                    {
+                        parts: [
+                            {
+                                text: prompt
+                            }
+                        ]
+                    }
+                ],
+                generationConfig: {
+                    temperature: 0.9,
+                    topK: 1,
+                    topP: 1,
+                    maxOutputTokens: 2048,
+                }
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.text();
+            console.error("API Error:", errorData);
+            throw new Error(`Gemini API request failed with status ${response.status}`);
         }
+
+        const data = await response.json();
+        const sarcasticAdvice = data.candidates[0].content.parts[0].text;
 
         // Display the sarcastic advice
         cattyReply.innerHTML += `<br><br><strong>💬 Cat's Advice:</strong> "${sarcasticAdvice}"`;
 
     } catch (error) {
         console.error('Error:', error);
-        cattyReply.textContent = "Meow! Something went wrong. Maybe I'm too busy chasing a laser pointer. Try again later!";
+        cattyReply.textContent = "Meow! Something went wrong with the API call. Check the console for details!";
     } finally {
         // Reset button state
         getAdviceBtn.disabled = false;
