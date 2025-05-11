@@ -34,7 +34,7 @@ getAdviceBtn.addEventListener('click', async () => {
         
         // Create prompt for Gemini
         const prompt = `You are a sarcastic cat. Give life advice based on the fact: "${catFact}" and this user's problem: "${userQuery}". The advice should be humorous and insulting and not true and sarcastic. Keep it under 70 words. example "Cats sleep for 70% of their lives."
-"Unlike you, they actually look cute doing it.`;
+"Unlike you, they actually look cute doing it. and let the advive phrase like a cats perspective`;
         
         // Make the API call
         const response = await fetch(`${API_URL}?key=${API_KEY}`, {
