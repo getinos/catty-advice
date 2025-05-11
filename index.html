@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Catty Advice</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[var(--light-bg)] text-[var(--text)] dark:bg-[var(--dark-bg)] dark:text-[var(--dark-text)] font-['Fredoka',sans-serif] transition duration-500">
+
+    <!-- Your HTML content here -->
+    <div class="max-w-3xl mx-auto p-6">
+        <h1 class="text-4xl font-bold mb-4 typewriter">Welcome to Catty Advice 🐱</h1>
+        <div class="card bg-white dark:bg-[var(--dark-card)] p-6 rounded-xl shadow-md mb-8">
+            <p class="text-lg">Need a paw-sitive boost? You're in the right place!</p>
+        </div>
+        <div class="mt-8">
+            <label for="userInput" class="block mb-2 text-lg font-semibold">
+              What do you need advice on? 🐾
+            </label>
+            <textarea id="userInput" rows="3" placeholder="e.g., I'm feeling stuck in life..." class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[var(--secondary)] dark:bg-[var(--dark-card)] dark:border-gray-600 dark:text-white"></textarea>
+          
+            <button id="getAdviceBtn" class="mt-4 btn bg-[var(--secondary)] text-white py-2 px-6 rounded-full font-semibold hover:bg-[var(--accent)]">
+              Get Catty Advice 🐱
+            </button>
+          
+            <p id="cattyReply" class="mt-6 text-lg font-semibold text-[var(--secondary)] dark:text-white hidden"></p>
+          </div>
+          
+          
+        
+    </div>
+<script src="./script.js"></script>
+</body>
+</html>
