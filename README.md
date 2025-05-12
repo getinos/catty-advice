@@ -6,7 +6,7 @@ When a user visits the Catty Advice page, they’re greeted with a playful headi
 
 Behind the scenes, the app first fetches a random cat fact from the MeowFacts API. This fact isn't shown on the webpage, but it forms the hidden foundation for the advice that follows.
 
-Next, using the AIML API (which wraps around OpenAI’s GPT-4o model), the application sends a prompt that says something like:
+Next, using the google gemini, the application sends a prompt that says something like:
 
 "You are a sarcastic cat. Give life advice based on the fact: 'Cats can rotate their ears 180 degrees.' The advice should be humorous and ironic."
 
@@ -23,7 +23,7 @@ JavaScript (vanilla): For DOM manipulation and handling API calls
 
 MeowFacts API: For fetching random cat facts (used internally only)
 
-AIML API (GPT-4o): For generating sarcastic advice using AI
+google gemini : For generating sarcastic advice using AI
 
 💡 Project Purpose
 Catty Advice is a creative experiment that showcases how humor, AI, and interactivity can come together to build delightful user experiences. It’s not meant to be a serious life coach — rather, it’s a digital cat with a personality that pokes fun at your situation with ironic wisdom.
